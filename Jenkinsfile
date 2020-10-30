@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine' 
-            args '-p 55555:8090' 
-        }
-    }
+    agent { label 'master' }
     environment {
           HOME = '.'
      }
@@ -13,7 +8,7 @@ pipeline {
           stage('Source') {
                steps {
                     git branch: 'main',
-                        url:    'https://github.com/ladyusa/atm-web-frontend.git'
+                        url:    'https://github.com/NutthanichN/atm-web-frontend.git'
                }
           }
           stage('Build') {
@@ -30,7 +25,7 @@ pipeline {
           }
           stage('Deploy') {
                steps {
-                    sh 'mvn spring-boot:run'
+                    bat 'mvn spring-boot:run'
                }
           }
      }
